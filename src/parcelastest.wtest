@@ -1,2 +1,49 @@
 import parcelas.*
+import plantas.*
 
+describe "Tests Parcelas"{
+	const parcela1 = new ParcelasEcologicas(ancho=20,largo=1,horasDeSolQueRecibe=8)
+	const parcela2 = new ParcelasIndustriales(ancho=12,largo=3,horasDeSolQueRecibe=10)
+	const parcela3 = new ParcelasIndustriales(ancho=10,largo=11,horasDeSolQueRecibe=9)
+	const menta1 = new Menta(anioDeObtencion = 2020,altura = 1)
+	const soja2 = new Soja(anioDeObtencion = 2015,altura = 2)
+	const quinoa1 = new Quinoa(anioDeObtencion = 2010,altura = 0.6, horasDeSol = 12)
+	const quinoa2 = new Quinoa(anioDeObtencion = 2006,altura = 0.7, horasDeSol = 9)
+	
+	test"Parcela1 superfice es 20, cantidad maxima que tolera es 4 "{
+		assert.equals(20,parcela1.superficie())
+		assert.equals(4,parcela1.cantidadMaxima())
+	}
+	
+	test"Parcela2 superfice es 36, cantidad maxima que tolera es 7 "{
+		assert.equals(36,parcela2.superficie())
+		assert.equals(7,parcela2.cantidadMaxima())
+	}
+	
+	test"Parcela3 superfice es 110, cantidad maxima que tolera es  "{
+		assert.equals(110,parcela3.superficie())
+		assert.equals(47,parcela3.cantidadMaxima()) //El .div() parece que redondea para abajo
+													// por que esta cuenta da 47.6
+	}
+	
+	test"parcela1 se asocia bien con menta1"{
+		assert.that(parcela1. seAsociaBien(menta1))
+	}
+	
+	test"Error al plantar menta1 en parcela1"{
+		assert.throwsException({parcela1.plantar(menta1)})
+	}
+	
+	test"parcela1 no se asocia bien con soja2"{
+		assert.notThat(parcela1. seAsociaBien(soja2))
+	}
+	
+	test"parcela2 se asocia bien con quinoa1"{
+		assert.that(parcela2. seAsociaBien(quinoa1))
+	}
+	
+	test"parcela3 no se asocia bien con menta 1"{
+		assert.notThat(parcela2. seAsociaBien(menta1))
+	}
+	
+}

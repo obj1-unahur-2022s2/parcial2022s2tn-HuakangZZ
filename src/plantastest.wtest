@@ -1,18 +1,181 @@
 import plantas.*
-describe "Test de Plantas"  {
+import parcelas.*
+
+	const parcela1 = new ParcelasEcologicas(ancho=20,largo=1,horasDeSolQueRecibe=7)
+	const parcela2 = new ParcelasIndustriales(ancho=12,largo=3,horasDeSolQueRecibe=10)
+	const parcela3 = new ParcelasIndustriales(ancho=10,largo=11,horasDeSolQueRecibe=9)
+	// Hago una parcela4 diferente para cada tipo de planta para demostrar el caso contrario con estas parcelas de arriba
+
+describe "Test de Plantas de Menta"  {
 	
-	const menta1 = new Menta()
+	const parcela4 = new ParcelasIndustriales(ancho=2,largo=2,horasDeSolQueRecibe=9)
 	
-	method initialize() {
-		menta1.valor(3)
+	const menta1 = new Menta(anioDeObtencion = 2020,altura = 1)
+	const menta2 = new Menta(anioDeObtencion = 2019,altura = 0.3)
+	
+	
+	test "Menta1 espacio que ocupa es 3 metros cuadrados y si da semillas" {
+		assert.equals(3, menta1.espacioQueOcupa())
+		assert.that(menta1.daNuevasSemillas())
 	}
 	
-	test "Menta - test de ejemplo" {
-		assert.equals(3, menta1.valor())
-
+	test "Menta2 espacio que ocupa 0.9 metros cuadrados y no da semillas" {
+		assert.equals(0.9, menta2.espacioQueOcupa())
+		assert.notThat(menta2.daNuevasSemillas())
+	}
+	
+	test "parcelas1,2,3 son ideales para menta1 y menta2"{
+		assert.that(menta1.parcelaEsIdeal(parcela1))
+		assert.that(menta1.parcelaEsIdeal(parcela2))
+		assert.that(menta1.parcelaEsIdeal(parcela3))
+		assert.that(menta2.parcelaEsIdeal(parcela1))
+		assert.that(menta2.parcelaEsIdeal(parcela2))
+		assert.that(menta2.parcelaEsIdeal(parcela3))
+	}
+	
+	test "Parcela 4 no es ideal para menta1 y menta2"{
+		assert.notThat(menta1.parcelaEsIdeal(parcela4))
+		assert.notThat(menta2.parcelaEsIdeal(parcela4))
 	}
 	
 }
 
+describe "Test de Plantas de Soja"  {
+	
+	const soja1 = new Soja(anioDeObtencion = 2009,altura = 0.6)
+	const soja2 = new Soja(anioDeObtencion = 2015,altura = 2)
+	const soja3 = new Soja(anioDeObtencion = 2005,altura = 1.8)
+	
+	
+	test "soja1 espacio que ocupa es 0.3 metros cuadrados, no da semillas y tolerancia al sol 7hs" {
+		assert.equals(0.3, soja1.espacioQueOcupa())
+		assert.equals(7, soja1.horasDeSolTolera())
+		assert.notThat(soja1.daNuevasSemillas())
+	}
+	
+	test "soja2 espacio que ocupa es 1 metros cuadrados, si da semillas y tolerancia al sol 9hs" {
+		assert.equals(1, soja2.espacioQueOcupa())
+		assert.equals(9, soja2.horasDeSolTolera())
+		assert.that(soja2.daNuevasSemillas())
+	}
+	
+	test "soja3 espacio que ocupa es 0.9 metros cuadrados, no da semillas y tolerancia al sol 9hs" {
+		assert.equals(0.9, soja3.espacioQueOcupa())
+		assert.equals(9, soja3.horasDeSolTolera())
+		assert.notThat(soja3.daNuevasSemillas())
+	}
+	
+	test"parcela3 es ideal para soja2 y soja3"{
+		assert.that(soja2.parcelaEsIdeal(parcela3))
+		assert.that(soja3.parcelaEsIdeal(parcela3))
+	}
+	
+	test"parcela1 y parcela2 no son ideales para soja2 y soja3"{
+		assert.notThat(soja2.parcelaEsIdeal(parcela1))
+		assert.notThat(soja3.parcelaEsIdeal(parcela1))
+		assert.notThat(soja2.parcelaEsIdeal(parcela2))
+		assert.notThat(soja3.parcelaEsIdeal(parcela2))
+	}
+	
+	test"parcela1 es ideal para soja1"{
+		assert.that(soja1.parcelaEsIdeal(parcela1))
+	}
+	
+	test"parcela2 y parcela3 no son ideales para soja1"{
+		assert.notThat(soja1.parcelaEsIdeal(parcela2))
+	}
+	
+}
 
+describe "Test de Plantas de Quinoa"  {
+	
+	const quinoa1 = new Quinoa(anioDeObtencion = 2010,altura = 0.6, horasDeSol = 12)
+	const quinoa2 = new Quinoa(anioDeObtencion = 2006,altura = 2, horasDeSol = 9)
+	const quinoa3 = new Quinoa(anioDeObtencion = 2006,altura = 2, horasDeSol = 15)
+	
+	method initialize(){
+		parcela2.plantar(quinoa3)
+		parcela1.plantar(quinoa2)
+	}
+	
+	test "quinoa1 espacio que ocupa es 0.5 metros cuadrados, si da semillas y tolerancia al sol 12hs" {
+		assert.equals(0.5, quinoa1.espacioQueOcupa())
+		assert.equals(12, quinoa1.horasDeSolTolera())
+		assert.that(quinoa1.daNuevasSemillas())
+	}
+	
+	test "quinoa2 espacio que ocupa es 0.5 metros cuadrados, no da semillas(por año y no es fuerte) y tolerancia al sol 9hs" {
+		assert.equals(0.5, quinoa2.espacioQueOcupa())
+		assert.equals(9, quinoa2.horasDeSolTolera())
+		assert.notThat(quinoa2.daNuevasSemillas())
+	}
+	
+	test"Parcela3 es ideal para quinoa1,2 y 3"{
+		assert.that(quinoa1.parcelaEsIdeal(parcela3))
+		assert.that(quinoa2.parcelaEsIdeal(parcela3))
+		assert.that(quinoa3.parcelaEsIdeal(parcela3))
+	}
+	
+	test"parcela 2 no es ideal para quinoa1,2 y 3"{
+		assert.notThat(quinoa1.parcelaEsIdeal(parcela2))
+		assert.notThat(quinoa2.parcelaEsIdeal(parcela2))
+		assert.notThat(quinoa3.parcelaEsIdeal(parcela2))
+	}
+	
+	
+}
+
+describe "Test de Plantas de SojaTransgenica"  {
+	
+	const sojaTransgenica1 = new SojaTransgenica(anioDeObtencion = 2009,altura = 0.6)
+	const sojaTransgenica2 = new SojaTransgenica(anioDeObtencion = 2015,altura = 2)
+	
+	
+	test "sojaTransgenica1 espacio que ocupa es 0.3 metros cuadrados, no da semillas y tolerancia al sol 7hs" {
+		assert.equals(0.3, sojaTransgenica1.espacioQueOcupa())
+		assert.equals(7, sojaTransgenica1.horasDeSolTolera())
+		assert.notThat(sojaTransgenica1.daNuevasSemillas())
+	}
+	
+	test "sojaTransgenica2 espacio que ocupa es 1 metros cuadrados, no da semillas y tolerancia al sol 9hs" {
+		assert.equals(1, sojaTransgenica2.espacioQueOcupa())
+		assert.equals(9, sojaTransgenica2.horasDeSolTolera())
+		assert.notThat(sojaTransgenica2.daNuevasSemillas())
+	}
+	
+
+}
+
+describe "Test de Plantas de HierbaBuena"  {
+	const parcela4 = new ParcelasIndustriales(ancho=2,largo=2,horasDeSolQueRecibe=9)
+	
+	const HierbaBuena1 = new HierbaBuena(anioDeObtencion = 2020,altura = 1)
+	const HierbaBuena2 = new HierbaBuena(anioDeObtencion = 2019,altura = 0.3)
+	
+	
+	test "HierbaBuena1 espacio que ocupa es 6 metros cuadrados y si da semillas" {
+		assert.equals(6, HierbaBuena1.espacioQueOcupa())
+		assert.that(HierbaBuena1.daNuevasSemillas())
+	}
+	
+	test "HierbaBuena2 espacio que ocupa 1.8 metros cuadrados y no da semillas" {
+		assert.equals(1.8, HierbaBuena2.espacioQueOcupa())
+		assert.notThat(HierbaBuena2.daNuevasSemillas())
+	}
+	
+	test "parcelas1,2,3 son ideales para HierbaBuena1 y HierbaBuena2"{
+		assert.that(HierbaBuena1.parcelaEsIdeal(parcela1))
+		assert.that(HierbaBuena1.parcelaEsIdeal(parcela2))
+		assert.that(HierbaBuena1.parcelaEsIdeal(parcela3))
+		assert.that(HierbaBuena2.parcelaEsIdeal(parcela1))
+		assert.that(HierbaBuena2.parcelaEsIdeal(parcela2))
+		assert.that(HierbaBuena2.parcelaEsIdeal(parcela3))
+	}
+	
+	test "Parcela 4 no es ideal para HierbaBuena1 y HierbaBuena2"{
+		assert.notThat(HierbaBuena1.parcelaEsIdeal(parcela4))
+		assert.notThat(HierbaBuena2.parcelaEsIdeal(parcela4))
+	}
+	
+}
 

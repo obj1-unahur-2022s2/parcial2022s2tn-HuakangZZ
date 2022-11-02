@@ -1,0 +1,42 @@
+import inta.*
+import parcelas.*
+import plantas.*
+
+describe"Para inta"{
+	
+	const parcela1 = new ParcelasEcologicas(ancho=20,largo=40,horasDeSolQueRecibe=3)
+	const parcela2 = new ParcelasIndustriales(ancho=12,largo=3,horasDeSolQueRecibe=3)
+	const parcela3 = new ParcelasIndustriales(ancho=10,largo=11,horasDeSolQueRecibe=3)
+	const soja1 = new Soja(anioDeObtencion = 2015,altura = 1)
+	const soja2 = new Soja(anioDeObtencion = 2015,altura = 0.3)
+	const soja3 = new Soja(anioDeObtencion = 2015,altura = 0.2)
+	const soja4 = new Soja(anioDeObtencion = 2015,altura = 0.2)
+	const quinoa1 = new Quinoa(anioDeObtencion = 2010,altura = 0.6, horasDeSol = 12)
+	const quinoa2 = new Quinoa(anioDeObtencion = 2010,altura = 1.6, horasDeSol = 12)
+	
+	method initialize(){
+		inta.meterParcela(parcela1)
+		inta.meterParcela(parcela2)
+		inta.meterParcela(parcela3)
+		parcela1.plantar(soja1)
+		parcela1.plantar(soja2)
+		parcela1.plantar(soja3)
+		parcela1.plantar(soja4)
+		parcela1.plantar(quinoa1)
+		parcela1.plantar(quinoa2)	
+		parcela2.plantar(soja3)
+		parcela2.plantar(soja2)
+		parcela3.plantar(soja3)
+		parcela3.plantar(soja1)
+	}
+	
+	test "Promedio de plantas por parcelas es 3"{
+		assert.equals(3,inta.promedioDePlantas())
+	}
+	
+	test "Parcela más autosustentable es la parcela 1 "{
+		
+		assert.that(inta.parcelaMasAutosustentable() == parcela1)
+
+	}
+}

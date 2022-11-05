@@ -1,3 +1,6 @@
+/*
+ * Recorda que al lanzar una exepcion el codigo se aborta y no sigue ejecutando.  En el caso de ```method plantar(unaPlanta)``` si inverstias la lógica te ahora el else
+ */
 import plantas.*
 
 class Parcelas {
@@ -15,10 +18,10 @@ class Parcelas {
 	method tieneComplicaciones() = plantas.any({p => p.horasDeSolTolera() < horasDeSolQueRecibe})
 	
 	method plantar(unaPlanta){
-		if(self.condicionParaPlantar(unaPlanta))
-			plantas.add(unaPlanta)
-		else
+		if(not self.condicionParaPlantar(unaPlanta))
 			self.error("No se cumple la condicion para plantar esta planta")
+		plantas.add(unaPlanta)
+		
 	}
 	
 	method condicionParaPlantar(unaPlanta) =

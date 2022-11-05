@@ -1,3 +1,7 @@
+/*
+ * Recorda que por convensión el nombre de las varibles debe ser en mínuscualas. Te quedaron dos HierbaBuenas en mayuscuala.
+ * Muy bien utilizados los múltiples describe
+ */
 import plantas.*
 import parcelas.*
 
@@ -149,32 +153,32 @@ describe "Test de Plantas de SojaTransgenica"  {
 describe "Test de Plantas de HierbaBuena"  {
 	const parcela4 = new ParcelasIndustriales(ancho=2,largo=2,horasDeSolQueRecibe=9)
 	
-	const HierbaBuena1 = new HierbaBuena(anioDeObtencion = 2020,altura = 1)
-	const HierbaBuena2 = new HierbaBuena(anioDeObtencion = 2019,altura = 0.3)
+	const hierbaBuena1 = new HierbaBuena(anioDeObtencion = 2020,altura = 1)
+	const hierbaBuena2 = new HierbaBuena(anioDeObtencion = 2019,altura = 0.3)
 	
 	
 	test "HierbaBuena1 espacio que ocupa es 6 metros cuadrados y si da semillas" {
-		assert.equals(6, HierbaBuena1.espacioQueOcupa())
-		assert.that(HierbaBuena1.daNuevasSemillas())
+		assert.equals(6, hierbaBuena1.espacioQueOcupa())
+		assert.that(hierbaBuena1.daNuevasSemillas())
 	}
 	
 	test "HierbaBuena2 espacio que ocupa 1.8 metros cuadrados y no da semillas" {
-		assert.equals(1.8, HierbaBuena2.espacioQueOcupa())
-		assert.notThat(HierbaBuena2.daNuevasSemillas())
+		assert.equals(1.8, hierbaBuena2.espacioQueOcupa())
+		assert.notThat(hierbaBuena2.daNuevasSemillas())
 	}
 	
 	test "parcelas1,2,3 son ideales para HierbaBuena1 y HierbaBuena2"{
-		assert.that(HierbaBuena1.parcelaEsIdeal(parcela1))
-		assert.that(HierbaBuena1.parcelaEsIdeal(parcela2))
-		assert.that(HierbaBuena1.parcelaEsIdeal(parcela3))
-		assert.that(HierbaBuena2.parcelaEsIdeal(parcela1))
-		assert.that(HierbaBuena2.parcelaEsIdeal(parcela2))
-		assert.that(HierbaBuena2.parcelaEsIdeal(parcela3))
+		assert.that(hierbaBuena1.parcelaEsIdeal(parcela1))
+		assert.that(hierbaBuena1.parcelaEsIdeal(parcela2))
+		assert.that(hierbaBuena1.parcelaEsIdeal(parcela3))
+		assert.that(hierbaBuena2.parcelaEsIdeal(parcela1))
+		assert.that(hierbaBuena2.parcelaEsIdeal(parcela2))
+		assert.that(hierbaBuena2.parcelaEsIdeal(parcela3))
 	}
 	
 	test "Parcela 4 no es ideal para HierbaBuena1 y HierbaBuena2"{
-		assert.notThat(HierbaBuena1.parcelaEsIdeal(parcela4))
-		assert.notThat(HierbaBuena2.parcelaEsIdeal(parcela4))
+		assert.notThat(hierbaBuena1.parcelaEsIdeal(parcela4))
+		assert.notThat(hierbaBuena2.parcelaEsIdeal(parcela4))
 	}
 	
 }

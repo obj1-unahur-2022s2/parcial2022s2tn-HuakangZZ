@@ -1,3 +1,6 @@
+/*
+ * ``` method parcelaEsIdeal(unaParcela)``` Debía ser un método abstracto de Plata y sobreescribirlo en las subclases.
+ */
 class Plantas{
 	var property anioDeObtencion
 	var property altura
@@ -6,13 +9,14 @@ class Plantas{
 	method espacioQueOcupa()
 	method esFuerte() = self.horasDeSolTolera()>10
 	method daNuevasSemillas() = self.esFuerte()
+	method parcelaEsIdeal(unaParcela)
 }
 
 class Menta inherits Plantas{
 	override method horasDeSolTolera() = 6
 	override method daNuevasSemillas() = super() or altura > 0.4
 	override method espacioQueOcupa() = altura * 3
-	method parcelaEsIdeal(unaParcela) =
+	override method parcelaEsIdeal(unaParcela) =
 		unaParcela.superficie() > 6
 }
 
@@ -29,7 +33,7 @@ class Soja inherits Plantas{
 	method condicionExtraParaSemillas() =
 		anioDeObtencion > 2007 and altura > 1
 	
-	method parcelaEsIdeal(unaParcela) =
+	override method parcelaEsIdeal(unaParcela) =
 		self.horasDeSolTolera() == unaParcela.horasDeSolQueRecibe()
 }
 
@@ -40,7 +44,7 @@ class Quinoa inherits Plantas{
 	override method espacioQueOcupa() = 0.5
 	override method daNuevasSemillas() = super() or anioDeObtencion < 2005
 	
-	method parcelaEsIdeal(unaParcela) = 
+	override method parcelaEsIdeal(unaParcela) = 
 		unaParcela.ningunaSuperaAltura(1.5)
 }
 

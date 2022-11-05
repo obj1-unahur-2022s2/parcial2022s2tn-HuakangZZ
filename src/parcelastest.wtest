@@ -1,3 +1,6 @@
+/*
+ * Te quedo la variable quinoa2 si usar. Y no esta bueno que quede en el codigo
+ */
 import parcelas.*
 import plantas.*
 
@@ -8,7 +11,7 @@ describe "Tests Parcelas"{
 	const menta1 = new Menta(anioDeObtencion = 2020,altura = 1)
 	const soja2 = new Soja(anioDeObtencion = 2015,altura = 2)
 	const quinoa1 = new Quinoa(anioDeObtencion = 2010,altura = 0.6, horasDeSol = 12)
-	const quinoa2 = new Quinoa(anioDeObtencion = 2006,altura = 0.7, horasDeSol = 9)
+	//const quinoa2 = new Quinoa(anioDeObtencion = 2006,altura = 0.7, horasDeSol = 9)
 	
 	test"Parcela1 superfice es 20, cantidad maxima que tolera es 4 "{
 		assert.equals(20,parcela1.superficie())
